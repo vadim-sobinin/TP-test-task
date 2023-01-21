@@ -1,0 +1,11 @@
+body {
+  @extend %popp-500;
+  font-size: 16px;
+  line-height: 16px;
+}
+
+.container{
+  max-width: 1230px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
