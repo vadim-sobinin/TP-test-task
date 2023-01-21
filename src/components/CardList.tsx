@@ -9,7 +9,12 @@ import { fetchProduct } from '../redux/slices/productSlice';
 const CardList: React.FC = () => {
   const dispatch = useDispatch();
   const { items, status } = useSelector((state: any) => state.productSlice);
-  const { sort, searchValue } = useSelector((state: any) => state.filterSlice);
+  const { sort, searchValue, currentPage } = useSelector((state: any) => state.filterSlice);
+
+  const itemsPerPage = 3;
+  const lastItemIndex = currentPage * itemsPerPage;
+  const firstItemIndex = lastItemIndex - itemsPerPage;
+  const currentItems = items.slice(firstItemIndex, lastItemIndex);
 
   const getProducts = async () => {
     const search = searchValue ? `&search=${searchValue}` : '';
@@ -29,7 +34,7 @@ const CardList: React.FC = () => {
 
   return (
     <div className="product-list__cards">
-      <Pagination />
+      <Pagination totalItems={items.length} itemsPerPage={itemsPerPage} />
       <div className="product-list__cards-top">
         <div>Фото</div>
         <div>Название</div>
@@ -50,7 +55,7 @@ const CardList: React.FC = () => {
       ) : (
         <>
           {status === 'success'
-            ? items.map((obj: any) => (
+            ? currentItems.map((obj: any) => (
                 <ListItem
                   key={obj.id}
                   /* @ts-ignore */

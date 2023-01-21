@@ -131,12 +131,16 @@
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.08), 0px 1px 1.5px rgba(0, 0, 0, 0.07), 0px 2px 5px rgba(43, 45, 80, 0.08), 0px 0px 0px 1px rgba(43, 45, 80, 0.1);
     border-radius: 2px;
     margin-right: 8px;
-    a{
+    button{
+      background: #F9FAFD;
+      border: none; 
+      outline: none;
       width: 34px;
       height: 30px;
       display: flex;
       justify-content: center;
       align-items: center;
+      cursor: pointer;
     }
   }
   &__pagination-item{
@@ -146,6 +150,7 @@
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.08), 0px 1px 1.5px rgba(0, 0, 0, 0.07), 0px 2px 5px rgba(43, 45, 80, 0.08), 0px 0px 0px 1px rgba(43, 45, 80, 0.1);
     border-radius: 2px;
     margin-right: 8px;
+    cursor: pointer;
     *{
       color: #4D5969;
       width: 34px;

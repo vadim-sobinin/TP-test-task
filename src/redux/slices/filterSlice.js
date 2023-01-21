@@ -16,6 +16,7 @@ const filterSlice = createSlice({
     },
     setSearchValue(state, action) {
       state.searchValue = action.payload;
+      state.currentPage = 1;
     },
     setSort(state, action) {
       state.sort = action.payload;
