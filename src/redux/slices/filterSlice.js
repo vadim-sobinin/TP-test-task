@@ -16,6 +16,7 @@ const filterSlice = createSlice({
     },
     setSearchValue(state, action) {
       state.searchValue = action.payload;
+      state.currentPage = 1;
     },
     setSort(state, action) {
       state.sort = action.payload;
@@ -29,7 +30,8 @@ const filterSlice = createSlice({
     setFilters(state, action) {
       state.currentPage = Number(action.payload.currentPage);
       state.sort = action.payload.sort;
-      state.categoryId = Number(action.payload.categoryId);
+      state.searchValue = action.payload.searchValue;
+      state.searchInputValue = action.payload.searchInputValue;
     },
   },
 });

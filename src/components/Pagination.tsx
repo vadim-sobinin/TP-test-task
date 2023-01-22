@@ -1,34 +1,72 @@
-import React from 'react'
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import prevIcon from "../assets/images/icons/prev.svg"
-import nextIcon from "../assets/images/icons/next.svg"
+import prevIcon from '../assets/images/icons/prev.svg';
+import nextIcon from '../assets/images/icons/next.svg';
+import { setCurrentPage } from '../redux/slices/filterSlice';
 
-const Pagination: React.FC = () => {
+type PaginationProps = {
+  totalItems: number;
+  itemsPerPage: number;
+};
+
+const Pagination: React.FC<PaginationProps> = ({ totalItems, itemsPerPage }) => {
+  const pageNumbers = [];
+
+  const dispatch = useDispatch();
+  const { currentPage } = useSelector((state: any) => state.filterSlice);
+
+  for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
+  const paginate = (pageNumber: number) => {
+    dispatch(setCurrentPage(pageNumber));
+  };
+
+  const setPrevPage = () => {
+    currentPage > 1
+      ? dispatch(setCurrentPage(currentPage - 1))
+      : dispatch(setCurrentPage(currentPage));
+  };
+  const setNextPage = () => {
+    currentPage < pageNumbers.length
+      ? dispatch(setCurrentPage(currentPage + 1))
+      : dispatch(setCurrentPage(currentPage));
+  };
+
   return (
     <div className="product-list__pagination">
-          <ul className="product-list__pagination-list">
-            <li className="product-list__pagination-prev">
-              <a href="#">
-                <img src={prevIcon} alt="prev"/>
-              </a>
-            </li>
-            <li className="product-list__pagination-item current">
-              <span>1</span>
-            </li>
-            <li className="product-list__pagination-item">
-              <a href="#">2</a>
-            </li>
-            <li className="product-list__pagination-item">
-              <a href="#">3</a>
-            </li>
-            <li className="product-list__pagination-next">
-              <a href="#">
-                <img src={nextIcon} alt="next"/>
-              </a>
-            </li>
-          </ul>
-        </div>
-  )
-}
+      {/* @ts-ignore */}
+      <ul className="product-list__pagination-list">
+        <li className="product-list__pagination-prev" onClick={setPrevPage}>
+          <button>
+            <img src={prevIcon} alt="prev" />
+          </button>
+        </li>
+        {pageNumbers.map((number) => (
+          <li
+            key={number}
+            className={
+              number === currentPage
+                ? 'product-list__pagination-item current'
+                : 'product-list__pagination-item'
+            }
+            onClick={() => {
+              paginate(number);
+            }}>
+            <span>{number}</span>
+          </li>
+        ))}
 
-export default Pagination
+        <li className="product-list__pagination-next" onClick={setNextPage}>
+          <button>
+            <img src={nextIcon} alt="next" />
+          </button>
+        </li>
+      </ul>
+    </div>
+  );
+};
+
+export default Pagination;
