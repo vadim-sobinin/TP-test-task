@@ -3,6 +3,7 @@ import React from 'react';
 
 import { Link, useParams, Redirect } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { RotatingLines } from 'react-loader-spinner';
 
 import prevIcon from '../assets/images/icons/card-prev.svg';
 
@@ -41,7 +42,17 @@ const ProductPage: React.FC = () => {
   }, []);
 
   if (!productInfo) {
-    return <h1>Загрузка...</h1>;
+    return (
+      <div className="product-card product-card__wrapper">
+        <RotatingLines
+          strokeColor="grey"
+          strokeWidth="5"
+          animationDuration="0.75"
+          width="96"
+          visible={true}
+        />
+      </div>
+    );
   }
 
   if (productInfo) {
