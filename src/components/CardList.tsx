@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import ListItem from './ListItem';
 import Pagination from './Pagination';
@@ -7,6 +8,7 @@ import Pagination from './Pagination';
 import { fetchProduct } from '../redux/slices/productSlice';
 
 const CardList: React.FC = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { items, status } = useSelector((state: any) => state.productSlice);
   const { sort, searchValue, currentPage } = useSelector((state: any) => state.filterSlice);
@@ -36,20 +38,20 @@ const CardList: React.FC = () => {
     <div className="product-list__cards">
       <Pagination totalItems={items.length} itemsPerPage={itemsPerPage} />
       <div className="product-list__cards-top">
-        <div>Фото</div>
-        <div>Название</div>
-        <div>Просмотры</div>
-        <div>Начало ротации</div>
-        <div>Конец ротации</div>
+        <div>{t('Photo')}</div>
+        <div>{t('Title')}</div>
+        <div>{t('Views')}</div>
+        <div>{t('Start of rotation')}</div>
+        <div>{t('End of rotation')}</div>
       </div>
 
       {status === 'error' ? (
         <div className="product-list__error-info">
-          <h2>Произошла ошибка 😕</h2>
+          <h2>{t('An error occurred')} 😕</h2>
           <p>
-            К сожалению, не получилось получить список продуктов.
+            {t('Unfortunately, unable to get the product list.')}
             <br />
-            Пожалуйста, повторите попытку позже или обратитесь к техническому специалисту.
+            {t('Please try again')}
           </p>
         </div>
       ) : (

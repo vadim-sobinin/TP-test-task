@@ -1,5 +1,6 @@
 import React from 'react';
 import debounce from 'lodash.debounce';
+import { useTranslation } from 'react-i18next';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearchValue, setSearchInputValue } from '../redux/slices/filterSlice';
@@ -7,6 +8,7 @@ import { setSearchValue, setSearchInputValue } from '../redux/slices/filterSlice
 import searchIcon from '../assets/images/icons/search.svg';
 
 const Search: React.FC = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { searchInputValue } = useSelector((state: any) => state.filterSlice);
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -28,7 +30,8 @@ const Search: React.FC = () => {
       <input
         className="product-list__form-input"
         type="search"
-        placeholder="Поиск..."
+        /* @ts-ignore */
+        placeholder={t('Search...')}
         ref={inputRef}
         value={searchInputValue}
         onChange={(e) => onChangeInput(e)}

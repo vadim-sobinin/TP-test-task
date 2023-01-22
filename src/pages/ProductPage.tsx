@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 
 import { Link, useParams, Redirect } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import prevIcon from '../assets/images/icons/card-prev.svg';
 
@@ -11,6 +12,7 @@ import Rating from '../components/Rating';
 const ProductPage: React.FC = () => {
   /* @ts-ignore */
   const { id } = useParams();
+  const { t } = useTranslation();
 
   const [productInfo, setProductInfo] = React.useState<{
     name: string;
@@ -31,7 +33,7 @@ const ProductPage: React.FC = () => {
         );
         await setProductInfo(data);
       } catch (error) {
-        alert('Ошибка в получении информации о продукте!');
+        alert(t('Error in receiving product information!'));
         <Redirect to="/" />;
       }
     }
@@ -67,7 +69,7 @@ const ProductPage: React.FC = () => {
           <div className="product-card__top">
             <Link className="card-item__prev" to="/">
               <img src={prevIcon} alt="Go back" />
-              <span>Назад</span>
+              <span>{t('Go back')}</span>
             </Link>
             <Lang />
           </div>
@@ -98,7 +100,7 @@ const ProductPage: React.FC = () => {
                       {productInfo.old_price[0]}
                       <sup>{productInfo.old_price[1]}</sup>₽
                     </span>
-                    <span className="card-item__price-olddescr">старая цена</span>
+                    <span className="card-item__price-olddescr">{t('old price')}</span>
                   </div>
 
                   <div className="card-item__price-new">
@@ -114,7 +116,7 @@ const ProductPage: React.FC = () => {
                       ₽
                     </span>
                     <span className="card-item__price-newdescr">
-                      {productInfo.discount == '0' ? 'цена' : 'цена по акции'}
+                      {productInfo.discount == '0' ? t('price') : t('special offer price')}
                     </span>
                   </div>
                 </div>
