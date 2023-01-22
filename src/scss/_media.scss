@@ -17,6 +17,9 @@
     }
     &__imgbox{
       margin-bottom: 20px;
+      img{
+        max-width: 100%;
+      }
     }
     &__content{
       max-width: 100%;
@@ -86,7 +89,7 @@
       justify-content: center;
     }
     &__price-old{
-      max-width: 108px;
+      // max-width: 108px;
       margin-bottom: 30px;
     }
     &__sale{
@@ -100,7 +103,7 @@
 @media (max-width: 420px){
   .product-list{
     &__title{
-      font-size: 20px;
+      // font-size: 20px;
       line-height: 22px;
     }
     &__pagination{
