@@ -7,14 +7,12 @@ import { setCurrentPage } from '../redux/slices/filterSlice';
 
 type PaginationProps = {
   totalItems: number;
-  itemsPerPage: number;
 };
 
-const Pagination: React.FC<PaginationProps> = ({ totalItems, itemsPerPage }) => {
+const Pagination: React.FC<PaginationProps> = ({ totalItems }) => {
   const pageNumbers = [];
-
   const dispatch = useDispatch();
-  const { currentPage } = useSelector((state: any) => state.filterSlice);
+  const { currentPage, itemsPerPage } = useSelector((state: any) => state.filterSlice);
 
   for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
     pageNumbers.push(i);

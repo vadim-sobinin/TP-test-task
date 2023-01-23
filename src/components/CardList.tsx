@@ -11,21 +11,23 @@ import { setFilters } from '../redux/slices/filterSlice';
 const CardList: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { items, status } = useSelector((state: any) => state.productSlice);
-  const { sort, searchValue, currentPage, searchInputValue } = useSelector(
-    (state: any) => state.filterSlice,
-  );
+  let { items, status } = useSelector((state: any) => state.productSlice);
+  const { sort, searchValue, currentPage, searchInputValue, itemsPerPage, activeCategory } =
+    useSelector((state: any) => state.filterSlice);
 
-  const itemsPerPage = 3;
   const lastItemIndex = currentPage * itemsPerPage;
   const firstItemIndex = lastItemIndex - itemsPerPage;
+
+  if (activeCategory !== 'Все') {
+    items = items.filter((item: any) => item.category === activeCategory);
+  }
+
   const currentItems = items.slice(firstItemIndex, lastItemIndex);
 
   React.useEffect(() => {
     if (localStorage.getItem('params')) {
       /* @ts-ignore */
       const params = qs.parse(localStorage.getItem('params'));
-      console.log(params);
       dispatch(
         setFilters({
           ...params,
@@ -54,17 +56,17 @@ const CardList: React.FC = () => {
     const queryString = qs.stringify({
       currentPage,
       sort,
+      activeCategory,
       searchValue,
       searchInputValue,
     });
 
     localStorage.setItem('params', queryString);
-    console.log(localStorage);
-  }, [sort, searchValue, currentPage, searchInputValue]);
+  }, [sort, searchValue, currentPage, searchInputValue, activeCategory]);
 
   return (
     <div className="product-list__cards">
-      <Pagination totalItems={items.length} itemsPerPage={itemsPerPage} />
+      <Pagination totalItems={items.length} />
       <div className="product-list__cards-top">
         <div>{t('Photo')}</div>
         <div>{t('Title')}</div>

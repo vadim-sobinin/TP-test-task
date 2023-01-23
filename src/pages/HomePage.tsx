@@ -5,6 +5,8 @@ import Lang from '../components/Lang';
 import CardList from '../components/CardList';
 import Search from '../components/Search';
 import { useTranslation } from 'react-i18next';
+import ItemsPerPageBlock from '../components/ItemsPerPageBlock';
+import Categories from '../components/Categories';
 
 const HomePage: React.FC = () => {
   const { t } = useTranslation();
@@ -19,6 +21,10 @@ const HomePage: React.FC = () => {
         <div className="product-list__sorting">
           <Sorting />
           <Search />
+        </div>
+        <div className="product-list__sorting">
+          <ItemsPerPageBlock />
+          <Categories />
         </div>
         <CardList />
       </div>

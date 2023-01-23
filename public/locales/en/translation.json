@@ -5,7 +5,7 @@
     "old price": "old price",
     "special offer price": "special offer price",
     "price": "price",
-    "Sorted:": "Sorted:",
+    "Sorted": "Sorted",
     "Search..." : "Search...",
     "Page not found :(": "Page not found :(",
     "Sorry, not available" : "Sorry, this page is not available. Please check the address of the page...",
@@ -20,6 +20,8 @@
     "by title" : "by title",
     "by views" : "by views",
     "by start date" : "by start date",
-    "by end date" : "by end date"
+    "by end date" : "by end date",
+    "Show products" : "Show products",
+    "Categories" : "Categories"
 
 }

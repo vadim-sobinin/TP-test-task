@@ -34,7 +34,7 @@ const Sorting: React.FC = () => {
 
   return (
     <div className="product-list__sorting-box">
-      <span className="product-list__sorting-name">{t('Sorted:')}</span>
+      <span className="product-list__sorting-name">{t('Sorted')}:</span>
       <div className="product-list__sorting-items">
         {sortCategoryList.map((obj, i) => (
           <button

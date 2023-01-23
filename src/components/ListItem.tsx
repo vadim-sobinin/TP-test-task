@@ -1,14 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useInView } from 'react-intersection-observer';
 
 const ListItem: React.FC = ({ obj }: any) => {
   const { t } = useTranslation();
+  const { ref, inView } = useInView({
+    threshold: 0,
+    triggerOnce: true,
+  });
   return (
-    <Link className="product-list__item" to={`/product/${obj.id}`}>
+    <Link ref={ref} className="product-list__item" to={`/product/${obj.id}`}>
       <div className="product-list__item-box">
         <div className="product-list__item-imgbox">
-          <img src={obj['image_url']} alt="product" />
+          {inView && <img src={obj['image_url']} alt="product" />}
         </div>
         <div className="product-list__item-content">
           <div className="product-list__item-title">{obj.name}</div>
