@@ -15,7 +15,6 @@ const Rating: React.FC<RatingProps> = ({ stars }) => {
     <div className="card-item__rating">
       <div className="rating">
         <div className="rating__wrapper">
-          {/* @ts-ignore */}
           {isStarActive.map((star, index) => (
             <div key={index} className={star ? 'active' : ''}></div>
           ))}

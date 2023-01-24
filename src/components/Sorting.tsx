@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import arrowDownIcon from '../assets/images/icons/arrowDown.svg';
 import arrowUpIcon from '../assets/images/icons/arrowUp.svg';
 
-type SortItem = {
+export type SortItemType = {
   name: string;
   sortProperty: string;
   order: string;
@@ -17,14 +17,14 @@ const Sorting: React.FC = () => {
   const dispatch = useDispatch();
   const sort = useSelector((state: any) => state.filterSlice.sort);
 
-  const sortCategoryList: SortItem[] = [
+  const sortCategoryList: SortItemType[] = [
     { name: t('by title'), sortProperty: 'name', order: 'asc' },
     { name: t('by views'), sortProperty: 'views', order: 'desc' },
     { name: t('by start date'), sortProperty: 'start_date', order: 'desc' },
     { name: t('by end date'), sortProperty: 'end_date', order: 'desc' },
   ];
 
-  function onClickActive(obj: SortItem) {
+  function onClickActive(obj: SortItemType) {
     if (sort.sortProperty === obj.sortProperty) {
       dispatch(setSortOrder(sort.order === 'acs' ? 'desc' : 'acs'));
     } else {

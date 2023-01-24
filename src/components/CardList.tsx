@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import qs from 'qs';
 import ListItem from './ListItem';
@@ -7,11 +7,33 @@ import Pagination from './Pagination';
 
 import { fetchProduct } from '../redux/slices/productSlice';
 import { setFilters } from '../redux/slices/filterSlice';
+import { useAppDispatch } from '../redux/store';
+
+export interface ItemType {
+  id: string;
+  name: string;
+  image_url: string;
+  logo_url: string;
+  category: string;
+  views: number;
+  start_date: string;
+  end_date: string;
+  discount: number | string;
+  stars: number;
+  old_price: number | string;
+  new_price: number | string;
+  disclaimer: string;
+}
+
+type ItemStateType = {
+  items: ItemType[];
+  status: string;
+};
 
 const CardList: React.FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  let { items, status } = useSelector((state: any) => state.productSlice);
+  const dispatch = useAppDispatch();
+  let { items, status }: ItemStateType = useSelector((state: any) => state.productSlice);
   const { sort, searchValue, currentPage, searchInputValue, itemsPerPage, activeCategory } =
     useSelector((state: any) => state.filterSlice);
 
@@ -19,15 +41,14 @@ const CardList: React.FC = () => {
   const firstItemIndex = lastItemIndex - itemsPerPage;
 
   if (activeCategory !== 'Все') {
-    items = items.filter((item: any) => item.category === activeCategory);
+    items = items.filter((item) => item.category === activeCategory);
   }
 
   const currentItems = items.slice(firstItemIndex, lastItemIndex);
 
   React.useEffect(() => {
     if (localStorage.getItem('params')) {
-      /* @ts-ignore */
-      const params = qs.parse(localStorage.getItem('params'));
+      const params = qs.parse(localStorage.getItem('params') || '');
       dispatch(
         setFilters({
           ...params,
@@ -40,7 +61,6 @@ const CardList: React.FC = () => {
     const search = searchValue ? `&search=${searchValue}` : '';
 
     dispatch(
-      /* @ts-ignore */
       fetchProduct({
         sort,
         search,
@@ -87,13 +107,7 @@ const CardList: React.FC = () => {
       ) : (
         <>
           {status === 'success'
-            ? currentItems.map((obj: any) => (
-                <ListItem
-                  key={obj.id}
-                  /* @ts-ignore */
-                  obj={obj}
-                />
-              ))
+            ? currentItems.map((obj) => <ListItem key={obj.id} obj={obj} />)
             : null}
         </>
       )}

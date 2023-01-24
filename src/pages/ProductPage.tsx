@@ -10,9 +10,12 @@ import prevIcon from '../assets/images/icons/card-prev.svg';
 import Lang from '../components/Lang';
 import Rating from '../components/Rating';
 
+type useParamsType = {
+  id: string;
+};
+
 const ProductPage: React.FC = () => {
-  /* @ts-ignore */
-  const { id } = useParams();
+  const params: useParamsType = useParams();
   const { t } = useTranslation();
 
   const [productInfo, setProductInfo] = React.useState<{
@@ -30,7 +33,7 @@ const ProductPage: React.FC = () => {
     async function fetchProductInfo() {
       try {
         const { data } = await axios.get(
-          'https://63b1fc0a5e490925c511e59c.mockapi.io/products/' + id,
+          'https://63b1fc0a5e490925c511e59c.mockapi.io/products/' + params.id,
         );
         await setProductInfo(data);
       } catch (error) {

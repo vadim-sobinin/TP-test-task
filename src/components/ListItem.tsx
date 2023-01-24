@@ -2,8 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useInView } from 'react-intersection-observer';
+import { ItemType } from './CardList';
 
-const ListItem: React.FC = ({ obj }: any) => {
+type ListItemProps = {
+  obj: ItemType;
+};
+
+const ListItem: React.FC<ListItemProps> = ({ obj }) => {
   const { t } = useTranslation();
   const { ref, inView } = useInView({
     threshold: 0,

@@ -19,8 +19,8 @@ const Categories: React.FC = () => {
   }
 
   React.useEffect(() => {
-    const handleClickOutside = (e: any) => {
-      if (!e.target.closest('.category')) {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (!(e.target as HTMLElement).closest('.category')) {
         setOpen(false);
       }
     };

@@ -35,7 +35,6 @@ const Pagination: React.FC<PaginationProps> = ({ totalItems }) => {
 
   return (
     <div className="product-list__pagination">
-      {/* @ts-ignore */}
       <ul className="product-list__pagination-list">
         <li className="product-list__pagination-prev" onClick={setPrevPage}>
           <button>
